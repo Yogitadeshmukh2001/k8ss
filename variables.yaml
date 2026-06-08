@@ -1,0 +1,14 @@
+- name: this is variable learning
+  hosts: all
+  vars:
+    animal:"Tiger"
+  tasks:
+    - name: print animal 1
+      debug:
+        msg: "{{ animal }}"
+    - name: print animal 2
+      debug:
+        msg: "{{ animal }}"
+    - name: print animal 3
+      debug:
+        msg: "{{ animal }}"

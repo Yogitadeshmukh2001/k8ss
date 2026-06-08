@@ -5,8 +5,9 @@
   vars_files:
     - ./var.txt
   vars_prompt:
-    -name: "animal"
-    prompt: enter the animal name
+    - name: animal
+      prompt: "Enter the name of the animal"
+      
   tasks:
     - name: print animal 1
       debug:

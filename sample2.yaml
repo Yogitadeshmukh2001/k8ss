@@ -4,4 +4,10 @@
     - name: print animal name
       debug:
         msg: "Hello I am tiger"
+    - name: print animal 
+      debug:
+        msg: "Hello I am Lion"
+    - name: print animal name
+      debug:
+        msg: "Hello I am Dear"
         

@@ -18,8 +18,8 @@
     
     - name: get hostname
       shell: hostname
-      register: URL
+      register: machineName
     - name: print hostname
       debug:
-        msg: {{URL.stdout}}
+        msg: "{{machineName}}"
   

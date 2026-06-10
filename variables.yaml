@@ -16,7 +16,10 @@
       debug:
         msg: "{{ animal }}"
     
-  vars:
-    name:
-    animal: "Lion"
+    - name: get hostname
+      shell: hostname
+      register: URL
+    - name: print hostname
+      debug:
+        msg: {{URL.stdout}}
   

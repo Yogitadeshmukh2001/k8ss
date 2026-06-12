@@ -19,7 +19,6 @@
       systemd:
         name: apache2
         state: started
-        enables: true 
-
-       when: ansible_os_family == "Debian"
+        enabled: true
+      when: ansible_os_family == "Debian"
 

@@ -1,0 +1,13 @@
+- name: package installation
+  hosts: all
+  become: true
+  task:
+    - name: install httpd
+      package:
+        name: httpd
+        state: latest
+        ignore_errors: true
+    - name: install apache2
+      package:
+        name: apache2
+        state: present

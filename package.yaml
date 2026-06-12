@@ -6,7 +6,7 @@
       package:
         name: httpd
         state: latest
-        ignore_errors: true
+      
         when: ansible_os_family == "RedHat"
     - name: install apache2
       package:

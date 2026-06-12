@@ -14,3 +14,12 @@
         state: present
         
       when: ansible_os_family == "Debian"
+
+    - name: start service
+      systemd:
+        name: apache2
+        state: started
+        enables: true 
+
+       when: ansible_os_family == "Debian"
+

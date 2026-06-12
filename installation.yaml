@@ -1,12 +1,13 @@
 - name: this playbook  for apache2 installation
   hosts: all
+  become: true  
   tasks:
     - name: install apache2
       apt:
-          name: apache2
-          state: latest
-
-    -  name: install httpd
-       yum: 
-         name: httpd
-         state: latest       
+        name: apache2
+        state: present
+    - name: start apache2
+      systemd:
+        name: apache2
+        state: latest
+        

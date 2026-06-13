@@ -7,13 +7,22 @@
       copy:
         src: index.html
         dest: /var/www/html/index.html
-    - name: start service
-      systemd:
-        name: apache2
-        state: restarted
-        enabled: true
+    
     - name: add online
       lineinfile: 
         path: /var/www/html/index.html
         regexp: '</h1>'
         line: '<h1> hello there this cloud </h1>'
+
+    - name: add block of lines
+      blockfile:
+        path: /var/www/html/index.html
+        block:
+          - this is batch23
+          - welcome all for devops
+              
+    - name: start service
+      systemd:
+        name: apache2
+        state: restarted
+        enabled: true

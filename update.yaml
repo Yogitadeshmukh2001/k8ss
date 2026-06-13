@@ -17,9 +17,12 @@
     - name: add block of lines
       blockinfile:
         path: /var/www/html/index.html
+        marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
         block: |
-           this is batch23
-           welcome all for devops
+          <h1> hello my name is yogita </h1>
+          <h2> this is batch23 </h2>
+          <h3> welcome all for devops </h3>
+
 
     - name: start service
       systemd:

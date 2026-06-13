@@ -12,4 +12,4 @@
 
     - name: print working directory
       debug:
-        msg: "{{PWD}}"
+        msg: "{{ansible_nodename}}"

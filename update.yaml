@@ -11,4 +11,10 @@
       systemd:
         name: apache2
         state: restarted
-        enabled: true   
+        enabled: true
+    - name: add online
+      lineinfile: 
+        path: /var/www/html/index.html
+        regexp: '<h1>'
+        line: '<h1> hello there this cloud </h1>'
+              

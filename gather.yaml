@@ -1,0 +1,15 @@
+- name: gathring fact from webserver
+  hosts: all
+  become: true
+  tasks:
+    - name: collect os name
+      debug:
+        msg: "{{ansible_distribution}}"
+
+    - name: collect ip address
+      debug:
+        msg: "{{ansible_default_ipv4}}"
+
+    - name: print working directory
+      debug:
+        msg: "{{PWD}}"

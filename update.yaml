@@ -15,7 +15,7 @@
         line: '<h1> hello there this cloud </h1>'
 
     - name: add block of lines
-      blockfile:
+      blockinfile:
         path: /var/www/html/index.html
         block: |
            this is batch23

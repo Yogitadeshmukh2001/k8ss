@@ -1,8 +1,10 @@
-FROM node:20-alpine
+FROM python:3.11-slim
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY requirement.txt .
+RUN pip install -r requirement.txt
+
 COPY . .
+COPY ["Python", "App.py"]
 EXPOSE 3000
 ENV name=yogita
 CMD ["node", "server.js"]

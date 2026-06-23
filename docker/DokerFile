@@ -1,11 +1,15 @@
-FROM python:3.11-slim
+FROM node:18
+
 WORKDIR /app
-COPY requirement.txt .
-RUN pip install -r requirement.txt
+
+COPY package*.json ./
+
+RUN npm install
 
 COPY . .
-COPY ["Python", "App.py"]
-EXPOSE 3000
-ENV name=yogi
-CMD ["node", "server.js"]
 
+EXPOSE 3000
+
+ENV name=yogi
+
+CMD ["node", "server.js"]

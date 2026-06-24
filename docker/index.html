@@ -1,0 +1,193 @@
+cat > public/index.html << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo App 🐳</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #1a1a2e;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: white;
+      width: 450px;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1a1a2e;
+      margin-bottom: 25px;
+      font-size: 28px;
+    }
+
+    .input-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus { border-color: #6c63ff; }
+
+    button.add-btn {
+      padding: 12px 20px;
+      background: #6c63ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    button.add-btn:hover { background: #5a52d5; }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f5f5f5;
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .todo-item.done span {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .todo-item span { font-size: 16px; }
+
+    .check-btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .del-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .empty {
+      text-align: center;
+      color: #aaa;
+      font-size: 16px;
+      padding: 20px;
+    }
+
+    .count {
+      text-align: center;
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 My Todo App</h1>
+
+    <div class="input-box">
+      <input type="text" id="taskInput" placeholder="Naya task likho..." />
+      <button class="add-btn" onclick="addTodo()">Add</button>
+    </div>
+
+    <div class="count" id="count"></div>
+    <div id="todoList"></div>
+  </div>
+
+  <script>
+    async function loadTodos() {
+      const res = await fetch('/todos');
+      const todos = await res.json();
+      const list = document.getElementById('todoList');
+      const count = document.getElementById('count');
+
+      count.textContent = `Total Tasks: ${todos.length}`;
+
+      if (todos.length === 0) {
+        list.innerHTML = '<div class="empty">Koi task nahi hai! Upar se add karo 😊</div>';
+        return;
+      }
+
+      list.innerHTML = todos.map(todo => `
+        <div class="todo-item ${todo.done ? 'done' : ''}">
+          <div class="left">
+            <button class="check-btn" onclick="toggleTodo(${todo.id})">✓</button>
+            <span>${todo.task}</span>
+          </div>
+          <button class="del-btn" onclick="deleteTodo(${todo.id})">🗑 Delete</button>
+        </div>
+      `).join('');
+    }
+
+    async function addTodo() {
+      const input = document.getElementById('taskInput');
+      const task = input.value.trim();
+      if (!task) return alert('Task khali nahi ho sakta!');
+
+      await fetch('/todos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task })
+      });
+
+      input.value = '';
+      loadTodos();
+    }
+
+    async function deleteTodo(id) {
+      await fetch(`/todos/${id}`, { method: 'DELETE' });
+      loadTodos();
+    }
+
+    async function toggleTodo(id) {
+      await fetch(`/todos/${id}`, { method: 'PATCH' });
+      loadTodos();
+    }
+
+    // Enter press pe bhi add ho
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('taskInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addTodo();
+      });
+      loadTodos();
+    });
+  </script>
+</body>
+</html>
+EOF

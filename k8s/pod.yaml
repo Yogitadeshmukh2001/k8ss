@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    app: my1stapp
+spec:
+  containers:
+  - name: myapp
+    image: yogitadeshmukh/batch23:httpd-v1
+
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500"
+    ports:
+      - containerPort: 80

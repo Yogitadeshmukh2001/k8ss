@@ -10,8 +10,11 @@ spec:
     image: yogitadeshmukh/batch23:httpd-v1
 
     resources:
+      requests:
+        memory: "64Mi"
+        cpu: "100m"
       limits:
         memory: "128Mi"
-        cpu: "500"
+        cpu: "200m"
     ports:
       - containerPort: 80

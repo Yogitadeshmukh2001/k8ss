@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mobile
+  labels:
+    app: mobile
+spec:
+  containers:
+  - name: mobile
+    image: yogitadeshmukh/batch23:mobile-v1
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+    

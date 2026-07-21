@@ -2,12 +2,13 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: my1stapp
+  namespace: database
   labels:
     app: my1stapp
 spec:
   containers:
   - name: my1stapp
-    namespace: database
+    
     image: yogitadeshmukh/batch23:httpd-v1
 
     resources:

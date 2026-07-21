@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: myapp
+  name: my1stapp
   labels:
     app: my1stapp
 spec:
   containers:
-  - name: myapp
+  - name: my1stapp
     image: yogitadeshmukh/batch23:httpd-v1
 
     resources:

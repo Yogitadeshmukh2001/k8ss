@@ -4,23 +4,24 @@ metadata:
   name: myreplicaset
   labels:
     app: myreplicaset
-    key: value
-spec:
-  replicas: 5
-  selector:
-    matchLabels:
-      env: value
-      app: mynginx
+  
+
+  spec:
+    replicas: 5
+    selector:
+      matchLabels:
+        app: mynginx
       matchExpressions:
       - {key: env, operator: In, values: [dev]}
-      
-  template:
-    metadata:
-      labels:
-        env: dev
-    spec:
-      containers:
-      - name: myreplicaset
-        image: nginx
-        ports:
-        - containerPort: 80
+    template:
+      metadata:
+        labels:
+          env: dev
+          app: mynginx
+      spec:
+        containers:
+        - name: myreplicaset
+          image: nginx
+          ports:
+          - containerPort: 80
+        
